@@ -313,7 +313,7 @@ asap_main(PyObject *self, PyObject *args, PyObject *kwargs) {
 	/*
 
 	*/
-	fout = (char * )malloc( (size_t) sizeof(char) * (strlen(dirfiles) + 8));
+	fout = (char * )malloc( (size_t) sizeof(char) * (strlen(dirfiles) + strlen("partitions.tab") + 1));
 	if (!fout)fprintf(stderr, "main: cannot allocate fout bye\n"), exit(2);
 
 	namegroups=malloc(sizeof(char)*( (strlen (dirfiles) + 20)));
@@ -481,8 +481,9 @@ fprintf(stderr,"> asap has finished building and testing all partitions\n  ");
 
 
 
-	file_res = (char * )malloc( (size_t) sizeof(char) * (strlen(dirfiles) + 10));
-	sprintf(file_res,"%sscores.tab",dirfiles);
+	file_res = (char * )malloc( (size_t) sizeof(char) * (strlen(dirfiles) + strlen("scores.tab") + 1));
+	if (!file_res)fprintf(stderr, "main: cannot allocate file_res bye\n"), exit(2);
+        sprintf(file_res,"%sscores.tab",dirfiles);
 	fres = fopen(file_res,"w");
 
 	fprintf(stderr, "> writing scores file\n",asap_param.lenSeq);
